@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sys/stat.h>
 #include "BOSS/BOSS.hh"
 #include "util/cxxopts.hpp"
 #include "util/input_reading.hh"
@@ -148,7 +149,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
 }
 
 int main(int argc, char** argv){
-    cxxopts::Options options("query","For every input read R, prints one line L consisting of characters '0' and '1' such L[i] == '1' iff (k+1)-mer R[i..i+k] is found in the index.");
+    cxxopts::Options options(argv[0],"For every input read R, prints one line L consisting of characters '0' and '1' such L[i] == '1' iff (k+1)-mer R[i..i+k] is found in the index.");
     int original_argc = argc; // It seems the CLI parsing library modifies argc, so store the original value
 
     options.add_options()

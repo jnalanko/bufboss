@@ -1,5 +1,6 @@
 #include <iostream>
 #include "BOSS/BOSS.hh"
+#include <sys/stat.h>
 #include "util/cxxopts.hpp"
 #include "util/input_reading.hh"
 #include "BufBOSS.hh"
@@ -104,6 +105,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
     }
 
     if(input_dir != "") check_dir_exists(input_dir);
+    mkdir(output_dir.c_str(),0755);
     check_dir_exists(output_dir);
     if(add_file != "") check_readable(add_file);
     if(add_filelist != "") check_readable(add_filelist);
@@ -183,7 +185,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
             to_string(bufboss.boss.number_of_edges()) + " edges");
     if(count_dummies)
         write_log("Number of dummy nodes: " + to_string(bufboss.boss.count_dummies()));
-    write_log("Writing merged BOSS to " + output_dir);
+    write_log("Writing updated bufBOSS to " + output_dir);
     bufboss.save_to_disk(output_dir + "/");
     write_log("Done");
 
@@ -191,7 +193,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
 }
 
 int main(int argc, char** argv){
-    cxxopts::Options options("merge","Merges new k-mers into a BOSS data structure");
+    cxxopts::Options options(argv[0],"Update the bufBOSS data structure");
     int original_argc = argc; // It seems the CLI parsing library modifies argc, so store the original value
 
     options.add_options()

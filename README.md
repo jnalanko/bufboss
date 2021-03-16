@@ -44,7 +44,6 @@ We recommend building the index out of a KMC database. For example:
 ```
 MY_INPUT=data/reads.fna
 K=31
-mkdir my_index # The index files will be written into this directory. This directory must exist before running.
 ./KMC/bin/kmc -v -k$K -m1 -ci1 -cs1 -fm $MY_INPUT temp/kmc_db temp
 ./bin/bufboss_build -o my_index -t temp --KMC temp/kmc_db --revcomp
 ```
@@ -147,4 +146,6 @@ Usage:
   -q, --query arg  Query FASTA-file (default: "")
 ```
 
+# Limitations
 
+Currently we support only k less or equal to 31.

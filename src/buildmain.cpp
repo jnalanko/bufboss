@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include "kmc_file.h"
+#include <sys/stat.h>
 #include <unordered_set>
 #include <algorithm>
 
@@ -180,7 +181,10 @@ int templated_main(const cxxopts::ParseResult& cli_params){
     if(tempdir == ""){
         write_log("Error: temp directory not specified");
         return 1;
-    } else temp_file_manager.set_dir(tempdir);
+    } else{
+        mkdir(tempdir.c_str(), 0744);
+        temp_file_manager.set_dir(tempdir);
+    }
 
     if(output_dir == ""){
         write_log("Error: output directory not specified");
@@ -189,6 +193,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
 
     if(!KMC && k == 0){
         write_log("Error: k not specified");
+        return 1;
     }
     if(!KMC && k >= 32){
         write_log("Error: k must be at most 31.");
@@ -203,6 +208,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
         return 1;
     }
 
+    mkdir(output_dir.c_str(),0755);
     check_dir_exists(output_dir);
     if(add_file != "") check_readable(add_file);
     if(add_filelist != "") check_readable(add_filelist);
@@ -254,7 +260,7 @@ int templated_main(const cxxopts::ParseResult& cli_params){
 }
 
 int main(int argc, char** argv){
-    cxxopts::Options options("build","Builds the BOSS data structure");
+    cxxopts::Options options(argv[0],"Builds the bufBOSS data structure");
     int original_argc = argc; // It seems the CLI parsing library modifies argc, so store the original value
 
     options.add_options()

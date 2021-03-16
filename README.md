@@ -133,7 +133,7 @@ Usage:
 ### Edge existence queries
 
 ```
-For every input read R, prints one line L consisting of characters '0' and '1' such L[i] == '1' iff (k+1)-mer R[i..i+k] is found in the index.
+For every input read R, prints to stdout one line L consisting of characters '0' and '1' such L[i] == '1' iff (k+1)-mer R[i..i+k] is found in the index.
 Usage:
   bufboss_query [OPTION...]
 

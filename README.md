@@ -35,7 +35,36 @@ make all
 
 ## Usage
 
-There are three programs: `bufboss_build`, `bufboss_update` and `bufboss_query`. They will be compiled to the directory `./bin`.
+There are three programs: `bufboss_build`, `bufboss_update` and `bufboss_query`. They will be compiled to the directory `./bin`. 
+
+### Example
+
+We recommend building the index out of a KMC database. For example:
+
+```
+MY_INPUT=data/reads.fna
+K=31
+mkdir my_index # The index files will be written into this directory. This directory must exist before running.
+./KMC/bin/kmc -v -k$K -m1 -ci1 -cs1 -fm $MY_INPUT temp/kmc_db temp
+./bin/bufboss_build -o my_index -t temp --KMC temp/kmc_db --revcomp
+```
+
+To update the index by adding the k-mers in a file and deleting the k-mers in another file, run the following:
+
+```
+MY_ADDITIONS=data/additions.fna 
+MY_DELETIONS=data/deletions.fna 
+./bin/bufboss_update -i my_index/ -o my_index --add $MY_ADDITIONS --del $MY_DELETIONS --buffer-fraction 0.1
+```
+
+This overwrites the previous index. The value of --buffer-fraction determines how often the buffer is flushed. If the buffer fraction is t, then the buffer is flushed when it has 10% of the edges compared to the static part of the data structure. To query sequences agaisnt the index, run the following:
+
+```
+MY_QUERIES=data/queries.fna
+./bin/bufboss_query -i my_index -q $MY_QUERIES
+```
+
+This prints bits 1 and 0 in ASCII such that for every input sequence R, we print one line L consisting of characters '0' and '1' such L[i] == '1' iff (k+1)-mer R[i..i+k] is found in the index.
 
 ### Construction
 
@@ -117,7 +146,5 @@ Usage:
   -h, --help       Print instructions.
   -q, --query arg  Query FASTA-file (default: "")
 ```
-
-
 
 

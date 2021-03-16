@@ -45,7 +45,7 @@ We recommend building the index out of a KMC database. For example:
 MY_INPUT=data/reads.fna
 K=31
 ./KMC/bin/kmc -v -k$K -m1 -ci1 -cs1 -fm $MY_INPUT temp/kmc_db temp
-./bin/bufboss_build -o my_index -t temp --KMC temp/kmc_db --revcomp
+./bin/bufboss_build -o my_index -t temp --KMC temp/kmc_db
 ```
 
 To update the index by adding the k-mers in a file and deleting the k-mers in another file, run the following:

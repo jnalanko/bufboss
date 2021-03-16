@@ -148,4 +148,4 @@ Usage:
 
 # Limitations
 
-Currently we support only k less or equal to 31.
+Currently we support only k less or equal to 31. The input files must be in (multi)fasta format.

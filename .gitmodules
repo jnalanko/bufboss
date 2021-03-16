@@ -1,0 +1,9 @@
+[submodule "KMC"]
+	path = KMC
+	url = https://github.com/refresh-bio/KMC
+[submodule "sdsl-lite"]
+	path = sdsl-lite
+	url = https://github.com/vgteam/sdsl-lite
+[submodule "stxxl"]
+	path = stxxl
+	url = https://github.com/stxxl/stxxl

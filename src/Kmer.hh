@@ -77,7 +77,7 @@ public:
     void set(LL idx, char c){
         assert(idx >= 0 && idx < 32);
         assert(c == 'A' || c == 'C' || c == 'G' || c == 'T');
-        data &= (~(uint64_t)0) ^ ((uint64_t)0xff << (idx*2)); // Clear
+        data &= (~(uint64_t)0) ^ ((uint64_t)0x03 << (idx*2)); // Clear
         data |= (uint64_t)to_bitpair(c) << (idx*2); // Set
     }
 
@@ -110,7 +110,7 @@ public:
     Kmer dropleft(){
         assert(k > 0);
         data >>= 2;
-        data &= (~(uint64_t)0) ^ ((uint64_t)0xff << ((k-1)*2)); // Clear
+        data &= (~(uint64_t)0) ^ ((uint64_t)0x03 << ((k-1)*2)); // Clear
         k--;
         return *this;
     }
@@ -118,7 +118,7 @@ public:
     // Drops rightmost nucleotide, i.e. returns a (k-1)-mer (itself)
     Kmer dropright(){
         assert(k > 0);
-        data &= (~(uint64_t)0) ^ ((uint64_t)0xff << ((k-1)*2)); // Clear
+        data &= (~(uint64_t)0) ^ ((uint64_t)0x03 << ((k-1)*2)); // Clear
         k--;
         return *this;
     }

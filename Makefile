@@ -1,4 +1,4 @@
-.PHONY: tests mergemain buildmain querymain end_to_end_test
+.PHONY: tests mergemain buildmain querymain end_to_end_test print_graph
 
 all: tests mergemain buildmain querymain end_to_end_test
 
@@ -22,6 +22,9 @@ buildmain:
 
 querymain:
 	$(CXX) -std=c++17 -I src $(LIBPATHS) $(INCLUDEPATHS) src/querymain.cpp $(LIBS) -o bin/bufboss_query -g -O3 -DNDEBUG -Wall -Wextra -march=native
+
+print_graph:
+	$(CXX) -std=c++17 -I src $(LIBPATHS) $(INCLUDEPATHS) src/print_graph.cpp $(LIBS) -o bin/bufboss_print_graph -g -O3 -DNDEBUG -Wall -Wextra -march=native
 
 end_to_end_test:
 	$(CXX) -std=c++17 -I src $(LIBPATHS) $(INCLUDEPATHS) src/end_to_end_test.cpp $(LIBS) -o bin/end_to_end_test -g -Wall -Wextra -pthread
